@@ -19,15 +19,15 @@ Examples
 
 Learn more about ``mux``::
 
-  $ man mux
+  man mux
 
 To create a session running ``top``::
 
-  $ mux monitor top
+  mux monitor top
 
 To attach a session::
 
-  $ mux monitor
+  mux monitor
 
 To attach last session::
 
@@ -35,12 +35,12 @@ To attach last session::
 
 To create a detached session::
 
-  $ mux work -d
+  mux work -d
 
 To create a session running ``vi`` inside working directory ``~``::
 
-  $ mux work -c ~ vi
+  mux work -c ~ vi
 
 To create a session with a named window::
 
-  $ mux monitor -n kernel dmesg -w --human
+  mux monitor -n kernel dmesg -w --human
