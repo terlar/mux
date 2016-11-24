@@ -1,0 +1,123 @@
+.Dd $Mdocdate: November 24 2016 $
+.Dt MUX 1
+.Os
+.Sh NAME
+.Nm mux
+.Nd tmux session wrapper
+.Sh SYNOPSIS
+.Nm mux
+.Bk -words
+.Op Ar session-name
+.Op Fl dE
+.Op Fl c Ar start-directory
+.Op Fl n Ar window-name
+.Op Fl x Ar width
+.Op Fl y Ar height
+.Op Ar shell-command
+.Ek
+.Sh DESCRIPTION
+.Nm
+is a wrapper arround
+.Xr tmux 1
+which makes it easy to create and attach
+.Em sessions .
+The two concepts are either
+.Em unnamed sessions
+or
+.Em named sessions ,
+the former having default behavior while the latter refers to a session
+with a name. Unnamed sessions can not be used together with the options,
+but is just a fallback for when the command is invoked without any
+arguments and there are no previous sessions.
+.Pp
+Running the command without any arguments will have two different
+outcomes.
+.Pp
+If run from outside
+.Xr tmux 1
+and no sessions exists an
+.Em unnamed session
+will be created, with existing sessions you will be taken to the most
+recently used session.
+.Pp
+If run from inside
+.Xr tmux 1
+you will be presented with a
+.Em session chooser
+where a session may be selected interactively from a list.
+.Pp
+Running the command with a
+.Em named session
+will either switch to the session if it exists or create a new one.
+.Pp
+The options are as follows:
+.Bl -tag -width	"XXXXXXXXXXXX"
+.It Ar session-name
+Create a new session with name
+.Ar session-name .
+.It Fl d
+Detach the session directly. This is mostly used for scripting or other
+cases where you don't want to enter the session directly.
+.It Fl E
+The update-environment option will not be applied.
+This option will be passed along to the
+.Em attach-session
+command on
+.Xr tmux 1 .
+.It Fl c Ar start-directory
+Set working directory for the initial window in the new session.
+This option will be passed along to the
+.Em attach-session
+command on
+.Xr tmux 1 .
+.It Fl n Ar window-name
+Set name for the initial window in the new session.
+This option will be passed along to the
+.Em attach-session
+command on
+.Xr tmux 1 .
+.It Fl x Ar width
+Set width for the initial window in the new session.
+This option will be passed along to the
+.Em attach-session
+command on
+.Xr tmux 1 .
+.It Fl y Ar height
+Set height for the initial window in the new session.
+This option will be passed along to the
+.Em attach-session
+command on
+.Xr tmux 1 .
+.It Ar shell-command
+The shell-command to run in the initial window in the new session.
+.Sh EXAMPLES
+To create a session running
+.Xr top 1 :
+.Pp
+.Dl $ mux monitor top
+.Pp
+To attach a session:
+.Pp
+.Dl $ mux monitor
+.Pp
+To attach last session:
+.Pp
+.Dl $ mux
+.Pp
+To create a detached session
+.Pp
+.Dl $ mux work -d
+.Pp
+To create a session running
+.Xr vi 1
+inside working directory ~:
+.Pp
+.Dl $ mux work -c ~ vi
+.Pp
+To create a session with a named window:
+.Pp
+.Dl $ mux monitor -n kernel dmesg -w --human
+.Sh SEE ALSO
+.Xr tmux 1
+.Sh AUTHORS
+.An Terje Larsen Aq Mt terlar@gmail.com
