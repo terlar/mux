@@ -15,6 +15,8 @@ DESTDIR ?=
 BINDIR  ?= $(PREFIX)/bin
 MANDIR  ?= $(PREFIX)/share/man
 
+FISH_COMPLETION_DIR ?= $(PREFIX)/share/fish/vendor_completions.d
+
 pkg:
 	mkdir $(PKG_DIR)
 
@@ -61,8 +63,11 @@ install:
 	install -m 755 -d "$(DESTDIR)$(BINDIR)"
 	install -m 755 -d "$(DESTDIR)$(MANDIR)"
 	install -m 755 -d "$(DESTDIR)$(MANDIR)/man1"
+
 	install -m 755 mux "$(DESTDIR)$(BINDIR)/mux"
 	install -m 644 man/man1/mux.1 "$(DESTDIR)$(MANDIR)/man1/mux.1"
+
+	-install -m 644 contrib/completion/fish/mux.fish "$(DESTDIR)$(FISH_COMPLETION_DIR)/"
 
 .PHONY: uninstall
 uninstall:
